@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Your cart | Amma's Pantry</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Hind:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--green:#23462f;--olive:#6d7c4c;--gold:#d7a93a;--chilli:#c65e2b;--paper:#f7f2e8;--cream:#fbf7f1;--ink:#1f241d;--muted:#667064;--line:#d8ceba;--card:#fffdf9;--shadow:0 14px 36px rgba(36,40,28,.09)}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 Hind,sans-serif}
+    a{color:inherit}
+    button,input,textarea{font:inherit}
+    button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid rgba(215,169,58,.6);outline-offset:2px}
+    .topline{background:var(--green);color:#fff;padding:8px 20px;text-align:center;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+    .nav{max-width:1120px;margin:auto;min-height:74px;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line)}
+    .brand{color:var(--green);font:28px/.9 'Bricolage Grotesque',sans-serif;font-weight:800;text-decoration:none}
+    .brand span{display:block;margin-top:5px;color:var(--muted);font:700 9px/1 Hind,sans-serif;letter-spacing:.18em;text-transform:uppercase}
+    .nav-links{display:flex;gap:20px;align-items:center;font-size:13px;font-weight:700}
+    .nav-links a{text-underline-offset:4px}
+    main{max-width:1120px;margin:0 auto;padding:42px 24px 70px}
+    .page-heading{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:26px}
+    .eyebrow{margin:0 0 7px;color:var(--chilli);font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase}
+    h1,h2,h3,p{margin-top:0}
+    h1,h2,h3{font-family:'Bricolage Grotesque',sans-serif;line-height:1.1}
+    h1{font-size:clamp(2.4rem,5vw,3.5rem);margin:0;color:var(--green)}
+    .page-heading p{margin:9px 0 0;color:var(--muted)}
+    .back-link{color:var(--green);font-weight:700;text-underline-offset:4px;white-space:nowrap}
+    .layout{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:34px;align-items:start}
+    .items h2,.checkout h2{font-size:1.5rem;color:var(--green);margin:0 0 12px}
+    .cart-items{border-top:1px solid var(--line)}
+    .cart-item{display:grid;grid-template-columns:88px minmax(0,1fr) auto;gap:16px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)}
+    .cart-item img{display:block;width:88px;height:76px;object-fit:cover;background:#e8e0cf;border-radius:4px}
+    .item-type{margin:0 0 4px;color:var(--chilli);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+    .cart-item h3{margin:0;font-size:1.1rem}
+    .item-unit{margin:3px 0 0;color:var(--muted);font-size:12px}
+    .item-price{margin-top:5px;font-size:13px;font-weight:700;color:var(--green)}
+    .item-controls{display:flex;align-items:center;gap:9px}
+    .item-controls button{display:grid;place-items:center;width:32px;height:32px;border:1px solid var(--green);border-radius:50%;background:transparent;color:var(--green);font-size:18px;line-height:1;cursor:pointer}
+    .item-controls button:hover{background:var(--green);color:#fff}
+    .item-controls output{min-width:18px;text-align:center;font-weight:700}
+    .remove{display:block;margin:6px 0 0 auto;border:0!important;width:auto!important;height:auto!important;padding:2px 0;background:none!important;color:var(--chilli)!important;font-size:11px!important;text-decoration:underline;text-underline-offset:3px}
+    .empty{padding:26px 0;color:var(--muted)}
+    .checkout{position:sticky;top:18px;padding:20px;background:var(--card);border:1px solid var(--line);border-top:4px solid var(--gold);border-radius:6px;box-shadow:var(--shadow)}
+    .checkout h2{margin-bottom:4px}
+    .checkout-intro{margin:0 0 16px;color:var(--muted);font-size:13px}
+    .totals{border-top:1px solid var(--line);padding-top:10px}
+    .total-row{display:flex;justify-content:space-between;gap:12px;padding:5px 0;font-size:13px}
+    .total-row strong:last-child{white-space:nowrap}
+    .total-row.grand{margin-top:5px;padding-top:10px;border-top:1px dashed var(--line);font-size:17px;color:var(--green)}
+    .delivery-hint{min-height:18px;margin:8px 0 14px;color:var(--green);font-size:11px}
+    .continue,.send-order{width:100%;padding:13px 14px;border:0;border-radius:4px;background:var(--green);color:#fff;font-size:14px;font-weight:700;cursor:pointer}
+    .continue:hover:not(:disabled),.send-order:hover:not(:disabled){background:var(--chilli)}
+    .continue:disabled,.send-order:disabled{opacity:.45;cursor:not-allowed}
+    .checkout-form{display:grid;gap:12px}
+    .checkout-form[hidden],#sendOrder[hidden]{display:none}
+    .checkout-form h3{margin:18px 0 0;color:var(--green);font-size:1.2rem}
+    .checkout-form label{display:block;margin-bottom:5px;color:#384033;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+    .checkout-form input,.checkout-form textarea{display:block;width:100%;padding:10px 11px;border:1px solid var(--line);border-radius:3px;background:#fff;color:var(--ink);font:14px Hind;text-transform:none;letter-spacing:0}
+    .checkout-form textarea{min-height:70px;resize:vertical}
+    .form-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    #status{min-height:20px;margin:8px 0 0;font-size:12px;font-weight:700}
+    #status.error{color:#ae311f}#status.success{color:var(--green)}
+    .notice{margin:22px 0 0;color:var(--muted);font-size:12px}
+    footer{padding:20px 24px;text-align:center;color:var(--muted);font-size:12px;border-top:1px solid var(--line)}
+    @media(max-width:760px){main{padding:32px 18px 54px}.layout{grid-template-columns:1fr;gap:22px}.checkout{position:static;grid-row:1}.page-heading{align-items:start;flex-direction:column}.cart-item{grid-template-columns:68px minmax(0,1fr) auto;gap:11px}.cart-item img{width:68px;height:68px}.item-controls{gap:6px}.checkout{padding:17px}}
+    @media(max-width:390px){.cart-item{grid-template-columns:58px minmax(0,1fr) auto;gap:8px}.cart-item img{width:58px;height:62px}.item-controls button{width:28px;height:28px}.item-controls{gap:4px}.nav{padding-inline:18px}.nav-links{gap:12px;font-size:11px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  </style>
+</head>
+<body>
+  <div class="topline">Homemade in small batches · Packed fresh for your table</div>
+  <nav class="nav" aria-label="Main navigation">
+    <a class="brand" href="/">Amma's Pantry<span>Small-batch family kitchen</span></a>
+    <div class="nav-links"><a href="/">Keep shopping</a><a href="/reviews">Reviews</a></div>
+  </nav>
+  <main>
+    <div class="page-heading"><div><p class="eyebrow">Your basket</p><h1>Your cart <span id="cartCount">(0)</span></h1><p>Check your picks, then share your delivery details with us.</p></div><a class="back-link" href="/">← Continue shopping</a></div>
+    <div class="layout">
+      <section class="items" aria-labelledby="itemsTitle">
+        <h2 id="itemsTitle">Items</h2>
+        <div class="cart-items" id="cartItems" aria-live="polite"></div>
+        <form class="checkout-form" id="checkoutForm" onsubmit="return false" hidden>
+          <h3>Delivery details</h3>
+          <label for="name">Full name</label><input id="name" autocomplete="name" required>
+          <div class="form-pair"><div><label for="phone">Phone number</label><input id="phone" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" autocomplete="tel" required></div><div><label for="pincode">Pincode</label><input id="pincode" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" autocomplete="postal-code" required></div></div>
+          <label for="address">Delivery address</label><textarea id="address" autocomplete="street-address" required></textarea>
+          <div class="form-pair"><div><label for="date">Delivery date</label><input id="date" type="date" required></div><div><label for="note">Note (optional)</label><input id="note" placeholder="Gift packing, less spicy..."></div></div>
+        </form>
+      </section>
+      <aside class="checkout" aria-labelledby="summaryTitle">
+        <h2 id="summaryTitle">Order summary</h2>
+        <p class="checkout-intro">Delivery is confirmed with you on WhatsApp.</p>
+        <div class="totals"><div class="total-row"><span>Items</span><strong id="subtotal">₹0</strong></div><div class="total-row"><span>Delivery</span><strong id="delivery">₹0</strong></div><div class="total-row grand"><strong>Total</strong><strong id="total">₹0</strong></div></div>
+        <p class="delivery-hint" id="deliveryHint"></p>
+        <button class="continue" id="continueCheckout" type="button" disabled>Continue to checkout</button>
+        <button class="send-order" id="sendOrder" type="button" hidden>Send order on WhatsApp</button>
+        <p id="status" role="status" aria-live="polite"></p>
+        <p class="notice">Payment is arranged directly with the shop through UPI after the order is confirmed.</p>
+      </aside>
+    </div>
+  </main>
+  <footer>Amma's Pantry · Homemade, one batch at a time.</footer>
+  <script>
+    const CART_KEY='amma-pantry-cart';
+    const $=selector=>document.querySelector(selector);
+    const money=value=>'₹'+Number(value||0).toLocaleString('en-IN');
+    const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+    let cart={};
+    let products=[];
+    let settings={};
+
+    function saveCart(){
+      try{localStorage.setItem(CART_KEY,JSON.stringify(cart));}catch{}
+    }
+
+    function imageFor(product){
+      const name=product.name.toLowerCase();
+      if(name.includes('chicken'))return '/images/products/chicken-pickle.png';
+      if(name.includes('mango'))return '/images/products/mango-pickle.png';
+      if(name.includes('gobi')||name.includes('cauliflower'))return '/images/products/gobi-pickle.png';
+      if(name.includes('gavvalu'))return '/images/products/gavvalu.png';
+      if(name.includes('murukku'))return '/images/products/murukku.png';
+      if(name.includes('papad'))return '/images/products/papad.png';
+      return '';
+    }
+
+    function renderCart(){
+      const chosen=products.filter(product=>cart[product.id]>0);
+      const itemCount=chosen.reduce((count,product)=>count+cart[product.id],0);
+      let subtotal=0;
+      $('#cartCount').textContent=`(${itemCount})`;
+      $('#continueCheckout').disabled=!itemCount;
+      $('#cartItems').innerHTML=chosen.length?chosen.map(product=>{
+        const line=product.price*cart[product.id];
+        subtotal+=line;
+        const image=imageFor(product);
+        return `<article class="cart-item">
+          ${image?`<img src="${image}" alt="" width="88" height="76">`:'<div aria-hidden="true"></div>'}
+          <div><p class="item-type">${escapeHtml(product.category)}</p><h3>${escapeHtml(product.name)}</h3><p class="item-unit">${escapeHtml(product.unit)}</p><div class="item-price">${money(product.price)} each · ${money(line)}</div></div>
+          <div><div class="item-controls"><button type="button" aria-label="Remove one ${escapeHtml(product.name)}" data-action="decrease" data-id="${escapeHtml(product.id)}">−</button><output>${cart[product.id]}</output><button type="button" aria-label="Add one ${escapeHtml(product.name)}" data-action="increase" data-id="${escapeHtml(product.id)}">+</button></div><button type="button" class="remove" data-action="remove" data-id="${escapeHtml(product.id)}">Remove</button></div>
+        </article>`;
+      }).join(''):'<p class="empty">Your cart is empty. Pick a homemade favourite to get started.</p>';
+      $('#cartItems').querySelectorAll('[data-action]').forEach(button=>button.addEventListener('click',()=>changeQuantity(button.dataset.id,button.dataset.action)));
+      updateTotals(subtotal,chosen.length>0);
+      saveCart();
+    }
+
+    function updateTotals(subtotal,hasItems){
+      const pincode=$('#pincode').value.trim();
+      let delivery=settings.areaFees&&settings.areaFees[pincode]!==undefined?settings.areaFees[pincode]:(settings.deliveryFee||0);
+      if(settings.freeAbove>0&&subtotal>=settings.freeAbove)delivery=0;
+      if(!hasItems)delivery=0;
+      $('#subtotal').textContent=money(subtotal);
+      $('#delivery').textContent=delivery?money(delivery):(hasItems?'Free':'₹0');
+      $('#total').textContent=money(subtotal+delivery);
+      $('#deliveryHint').textContent=hasItems&&settings.freeAbove>subtotal?`Add ${money(settings.freeAbove-subtotal)} more for free delivery.`:'';
+    }
+
+    function changeQuantity(id,action){
+      if(action==='remove')delete cart[id];
+      else if(action==='increase')cart[id]=Math.min(50,(cart[id]||0)+1);
+      else cart[id]=Math.max(0,(cart[id]||0)-1);
+      if(!cart[id])delete cart[id];
+      renderCart();
+    }
+
+    function buildMessage(){
+      const chosen=products.filter(product=>cart[product.id]>0);
+      const subtotal=chosen.reduce((sum,product)=>sum+product.price*cart[product.id],0);
+      const pincode=$('#pincode').value.trim();
+      let delivery=settings.areaFees&&settings.areaFees[pincode]!==undefined?settings.areaFees[pincode]:(settings.deliveryFee||0);
+      if(settings.freeAbove>0&&subtotal>=settings.freeAbove)delivery=0;
+      const lines=chosen.map(product=>`${product.name} (${product.unit}) × ${cart[product.id]} = ${money(product.price*cart[product.id])}`);
+      return [`Hi ${settings.shopName||"Amma's Pantry"}, I would like to place an order.`,'','Customer details:',
+        `Name: ${$('#name').value.trim()}`,`Phone: ${$('#phone').value.trim()}`,`Address: ${$('#address').value.trim()}`,
+        `Pincode: ${pincode}`,`Delivery date: ${$('#date').value}`,$('#note').value.trim()?`Note: ${$('#note').value.trim()}`:'',
+        '','Items:',...lines,'',`Subtotal: ${money(subtotal)}`,`Delivery: ${delivery?money(delivery):'Free'}`,
+        `Total: ${money(subtotal+delivery)}`,'','Please confirm the order and share your UPI details for payment.'
+      ].filter(Boolean).join('\n');
+    }
+
+    async function init(){
+      try{cart=JSON.parse(localStorage.getItem(CART_KEY)||'{}')||{};}catch{cart={};}
+      try{
+        const response=await fetch('/api/products');
+        if(!response.ok)throw new Error('Could not load the shop menu. Refresh to try again.');
+        const data=await response.json();
+        products=data.products||[];
+        settings=data.settings||{};
+        for(const id of Object.keys(cart))if(!products.some(product=>product.id===id)||!Number.isInteger(Number(cart[id])))delete cart[id];else cart[id]=Math.max(0,Math.min(50,Number(cart[id])));
+        const earliestDate=new Date();
+        earliestDate.setDate(earliestDate.getDate()+2);
+        $('#date').min=earliestDate.toISOString().slice(0,10);
+        $('#date').value=$('#date').min;
+        $('#pincode').addEventListener('input',()=>renderCart());
+        $('#continueCheckout').addEventListener('click',()=>{
+          $('#checkoutForm').hidden=false;
+          $('#continueCheckout').hidden=true;
+          $('#sendOrder').hidden=false;
+          $('#checkoutForm').scrollIntoView({behavior:'smooth',block:'start'});
+          $('#name').focus({preventScroll:true});
+        });
+        $('#sendOrder').addEventListener('click',()=>{
+          const form=$('#checkoutForm');
+          if(!form.reportValidity())return;
+          if(!/^\d{10}$/.test($('#phone').value.trim())||!/^\d{6}$/.test($('#pincode').value.trim())){
+            $('#status').className='error';
+            $('#status').textContent='Enter a valid 10-digit phone number and 6-digit pincode.';
+            return;
+          }
+          const number=String(settings.whatsappNumber||'').replace(/\D/g,'');
+          if(!number){$('#status').className='error';$('#status').textContent='WhatsApp ordering is not available right now.';return;}
+          window.open(`https://wa.me/${number}?text=${encodeURIComponent(buildMessage())}`,'_blank','noopener');
+          $('#status').className='success';
+          $('#status').textContent='Your order is ready in WhatsApp. Send it there to confirm.';
+        });
+        renderCart();
+      }catch(error){
+        $('#cartItems').innerHTML=`<p class="empty">${escapeHtml(error.message)}</p>`;
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>

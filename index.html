@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Homemade snacks & pickles</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Hind:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--green:#23462f;--olive:#6d7c4c;--gold:#d7a93a;--chilli:#c65e2b;--terracotta:#b86a39;--paper:#f7f2e8;--cream:#fbf7f1;--ink:#1f241d;--line:#d8ceba;--card:#fffdf9;--shadow:0 18px 40px rgba(36,40,28,.10)}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:20px}body{margin:0;background:linear-gradient(180deg,#f7f2e8 0%,#f2ead8 100%);color:var(--ink);font:17px/1.55 Hind,sans-serif}
+h1,h2,h3{font-family:'Bricolage Grotesque',sans-serif;line-height:1.1;margin:0}
+header{padding:14px 20px 24px;background:var(--paper);color:var(--ink)}
+.wrap{max-width:1100px;margin:0 auto;position:relative;z-index:1}
+.hero{position:relative;isolation:isolate;display:grid;place-items:center;min-height:670px;overflow:hidden;background:linear-gradient(90deg,#f0d7ca 0 50%,#dce4cb 50% 100%)}
+.hero-copy{position:relative;z-index:2;max-width:720px;padding:20px 24px;text-align:center}
+.eyebrow{display:inline-block;color:var(--chilli);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+header h1{font-size:clamp(3.8rem,7vw,6rem);font-weight:800;line-height:.96;letter-spacing:0;margin-top:10px;color:var(--green);text-wrap:balance}
+header p{max-width:48ch;margin:12px auto 0;color:#3c4738;font-size:.98rem}
+.hero-cta{display:inline-flex;align-items:center;gap:12px;margin-top:16px;padding:11px 18px;background:var(--green);color:#fff;text-decoration:none;border-radius:3px;font-weight:700;box-shadow:0 8px 18px rgba(35,70,47,.15)}
+.hero-cta:hover{background:var(--chilli)}
+.hero-links{display:flex;justify-content:center;flex-wrap:wrap;gap:20px;margin-top:15px;font-size:.86rem;font-weight:700}
+.hero-links a{color:var(--green);text-underline-offset:4px}
+.float-food{position:absolute;z-index:1;width:clamp(100px,12vw,140px);margin:0;text-align:center;animation:food-float 4.8s ease-in-out infinite;animation-delay:var(--delay,0s);transform:translate3d(var(--scroll-x,0px),var(--scroll-y,0px),0) rotate(var(--tilt,0deg));transition:scale .2s ease;filter:drop-shadow(0 14px 13px rgba(37,41,26,.2))}
+.float-food:hover{z-index:3;scale:1.1;animation-play-state:paused}
+.float-food img{display:block;width:100%;aspect-ratio:1;object-fit:cover;border:5px solid rgba(255,253,249,.94);border-radius:50%}
+.float-food figcaption{display:inline-block;margin-top:7px;padding:4px 9px;background:var(--card);border:1px solid rgba(35,70,47,.12);border-radius:999px;color:var(--green);font-size:.72rem;font-weight:700;line-height:1.15;white-space:nowrap}
+.food-chicken{top:5%;left:7%;--tilt:-8deg;--delay:-.4s}
+.food-mango{top:5%;right:7%;--tilt:7deg;--delay:-1.7s}
+.food-gobi{top:5%;left:calc(50% - 6vw);--tilt:6deg;--delay:-2.4s}
+.food-gavvalu{bottom:5%;left:7%;--tilt:-7deg;--delay:-.9s}
+.food-murukku{bottom:5%;left:calc(50% - 6vw);--tilt:7deg;--delay:-2s}
+.food-papad{bottom:5%;right:7%;--tilt:-6deg;--delay:-1.2s}
+@keyframes food-float{0%,100%{translate:0 0}50%{translate:0 -12px}}
+main.wrap{padding:20px 20px 0}
+.catalog-intro{display:flex;align-items:end;justify-content:space-between;gap:16px;margin:0 0 12px}
+.catalog-intro:target{animation:menu-arrive .65s ease-out}
+@keyframes menu-arrive{from{opacity:.65;translate:0 14px}to{opacity:1;translate:0 0}}
+.catalog-intro small{display:block;color:var(--chilli);font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
+.catalog-intro h2{font-size:2rem;color:var(--green)}
+.catalog-intro p{max-width:42ch;margin:0;color:#586554;font-size:.9rem}
+.tabs{display:flex;gap:10px;margin:0 0 16px;flex-wrap:wrap}
+.tabs button{border:1.5px solid rgba(35,70,47,.4);background:rgba(255,255,255,.5);color:var(--ink);padding:9px 18px;border-radius:999px;font:600 16px Hind;cursor:pointer;transition:all .2s ease}
+.tabs button.on{background:var(--green);color:#fff;border-color:var(--green);box-shadow:0 10px 20px rgba(35,70,47,.18)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.jar{background:var(--card);border:1px solid rgba(35,70,47,.12);border-top:3px solid var(--gold);border-radius:14px;padding:0;box-shadow:0 10px 24px rgba(36,40,28,.07);overflow:hidden;transition:transform .18s ease,box-shadow .18s ease}
+.jar:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.jar>div{padding:18px;height:100%;display:flex;flex-direction:column;background:linear-gradient(180deg,#fffdf9,#f9f3e8)}
+.jar h3{font-size:1.42rem;color:var(--ink)}
+.jar small{color:var(--chilli);font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.jar p{margin:8px 0 18px;flex:1;font-size:.96rem;opacity:.85;line-height:1.6}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.price{font:800 1.32rem 'Bricolage Grotesque';color:var(--green)}
+.qty{display:flex;align-items:center;gap:10px;padding:4px 8px;border:1px solid rgba(35,70,47,.15);background:#fff;border-radius:999px}
+.qty button{width:30px;height:30px;border-radius:50%;border:none;background:var(--green);color:#fff;font-size:22px;cursor:pointer;display:grid;place-items:center;line-height:1;padding:0}
+.qty button:hover{background:var(--terracotta)}
+.qty b{min-width:18px;text-align:center;font-size:1rem}
+section.checkout{margin:38px 0 36px;background:linear-gradient(180deg,#fffdfb,#f7f0e3);border:1px solid rgba(35,70,47,.12);border-radius:18px;padding:24px;box-shadow:var(--shadow);scroll-margin-top:20px}
+.checkout h2{font-size:2rem;margin:0;color:var(--green)}
+.cart-heading{display:flex;align-items:end;justify-content:space-between;gap:16px}
+.cart-heading small{display:block;color:var(--chilli);font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.cart-heading a{color:var(--green);font-size:.88rem;font-weight:700;text-underline-offset:4px}
+.continue{width:100%;border:0;background:var(--green);color:#fff;padding:14px 18px;border-radius:10px;font:700 16px Hind;cursor:pointer}
+.continue:hover:not(:disabled){background:var(--terracotta)}
+.continue:disabled{opacity:.45;cursor:not-allowed}
+.checkout-details{margin-top:20px;padding-top:18px;border-top:1px solid var(--line);scroll-margin-top:20px}
+.checkout-details[hidden],.cart-dock[hidden]{display:none}
+.checkout-details h3{font-size:1.25rem;color:var(--green);margin:0 0 14px}
+.cart-dock{position:fixed;z-index:10;left:50%;bottom:16px;transform:translateX(-50%);display:flex;align-items:center;justify-content:space-between;gap:22px;min-width:min(430px,calc(100vw - 32px));padding:12px 16px;border:1px solid rgba(255,255,255,.24);border-radius:12px;background:var(--green);color:#fff;box-shadow:0 12px 34px rgba(18,34,24,.28);font:600 14px Hind;cursor:pointer;text-decoration:none}
+.cart-dock strong{font-weight:700;color:#f1d574}
+form{display:grid;grid-template-columns:1fr 1fr;gap:14px}form .full{grid-column:1/-1}
+label{font-weight:700;font-size:.85rem;display:block;margin-bottom:6px;color:#2f362d}
+input,textarea{width:100%;padding:12px 12px;border:1.5px solid var(--line);border-radius:12px;background:#fff;box-shadow:inset 0 1px 2px rgba(0,0,0,.02);color:var(--ink);font:inherit}
+input:focus,textarea:focus,button:focus-visible{outline:3px solid rgba(215,169,58,.45);outline-offset:2px}
+.sum{margin:20px 0;border-top:1px dashed rgba(35,70,47,.2);padding-top:14px}.sum .row{padding:5px 0}.tot{font:800 1.3rem 'Bricolage Grotesque';color:var(--green)}
+.pay{background:linear-gradient(135deg,var(--chilli),var(--terracotta));color:#fff;border:0;padding:15px 26px;border-radius:12px;font:700 17px Hind;cursor:pointer;width:100%;box-shadow:0 12px 20px rgba(198,94,43,.24)}
+.pay:disabled{opacity:.5;cursor:not-allowed;box-shadow:none}
+#msg{margin-top:10px;font-weight:700}.err{color:var(--chilli)}.ok{color:#2f7d4f}
+#hint{font-size:.85rem;opacity:.8;color:var(--green)}
+footer{text-align:center;padding:0 0 42px;font-size:.86rem;opacity:.75;color:var(--ink)}
+@media(max-width:700px){header{padding:0}.hero{min-height:780px;background:linear-gradient(180deg,#f0d7ca 0 50%,#dce4cb 50% 100%)}.hero-copy{padding:0 22px}.eyebrow{font-size:.68rem}.hero h1{font-size:clamp(3.25rem,12vw,4.5rem);margin-top:12px}.hero p{max-width:34ch;font-size:.95rem;margin-top:12px}.hero-cta{margin-top:16px;padding:11px 16px}.hero-links{gap:16px;font-size:.8rem}.float-food{width:clamp(76px,23vw,108px)}.float-food img{border-width:3px}.float-food figcaption{margin-top:4px;padding:4px 6px;font-size:.62rem}.food-chicken{top:4%;left:5%}.food-mango{top:4%;right:5%}.food-gobi{top:12%;left:calc(50% - 54px)}.food-gavvalu{top:auto;right:auto;bottom:4%;left:5%}.food-murukku{bottom:4%;left:calc(50% - 54px)}.food-papad{bottom:4%;right:5%}.catalog-intro{align-items:start;flex-direction:column;gap:6px;margin-top:8px}.catalog-intro h2{font-size:1.7rem}}
+@media(max-width:600px){form{grid-template-columns:1fr}.wrap{padding:0 16px}.header .wrap{padding:0}.checkout{padding:22px 18px}.grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}}
+@media(prefers-reduced-motion:reduce){.float-food{animation:none}}
+</style></head><body>
+<header><div class="hero">
+<figure class="float-food food-chicken" data-scroll-direction="1" data-scroll-mobile="1"><img src="/images/products/chicken-pickle.png" alt="" fetchpriority="high"><figcaption>Chicken pickle</figcaption></figure>
+<figure class="float-food food-mango" data-scroll-direction="-1" data-scroll-mobile="-1"><img src="/images/products/mango-pickle.png" alt="" fetchpriority="high"><figcaption>Mango pickle</figcaption></figure>
+<figure class="float-food food-gobi" data-scroll-direction="0" data-scroll-mobile="0" data-scroll-lane="-.65"><img src="/images/products/gobi-pickle.png" alt="" loading="eager"><figcaption>Gobi pickle</figcaption></figure>
+<figure class="float-food food-gavvalu" data-scroll-direction="1" data-scroll-mobile="1" data-scroll-delay=".02" data-scroll-lane="-.48"><img src="/images/products/gavvalu.png" alt="" loading="eager"><figcaption>Gavvalu</figcaption></figure>
+<figure class="float-food food-murukku" data-scroll-direction="0" data-scroll-mobile="0" data-scroll-lane=".3"><img src="/images/products/murukku.png" alt="" loading="eager"><figcaption>Murukku</figcaption></figure>
+<figure class="float-food food-papad" data-scroll-direction="-1" data-scroll-mobile="-1" data-scroll-delay=".02" data-scroll-lane="-.48"><img src="/images/products/papad.png" alt="" loading="eager"><figcaption>Papad</figcaption></figure>
+<div class="hero-copy"><div class="eyebrow">Pickles · snacks · small-batch homemade</div><h1 id="shop">Amma's Pantry</h1>
+<p>Homemade favourites, packed fresh and shared with care. Choose your jars and snacks, then add them to your cart.</p>
+<a class="hero-cta" href="#menu">Explore the kitchen <span aria-hidden="true">↓</span></a>
+<div class="hero-links"><a href="/reviews">Read customer reviews</a><a href="/alternate.html">Bottle scroll concept</a><a href="/third-design">Third design</a></div></div>
+</div></header>
+<main class="wrap">
+<div class="catalog-intro" id="menu"><div><small>Made fresh in small batches</small><h2>Shop the kitchen</h2></div><p>Add your favourites to the cart, then enter your delivery details before sending the order on WhatsApp.</p></div>
+<div class="tabs" id="tabs"></div>
+<div class="grid" id="grid"></div>
+<section class="checkout" id="cartPreview" aria-labelledby="cartTitle"><div class="cart-heading"><div><small>Your basket</small><h2 id="cartTitle">Your cart <span id="cartCount">0 items</span></h2></div><a href="#menu">Keep shopping</a></div>
+<div id="lines" class="sum" style="border:0;padding:0"><p>Nothing added yet. Pick something above.</p></div>
+<div class="sum"><div class="row"><span>Items</span><span id="sub">₹0</span></div>
+<div class="row"><span>Delivery</span><span id="fee">₹0</span></div>
+<div class="row tot"><span>Total</span><span id="tot">₹0</span></div><div id="hint" style="font-size:.85rem;opacity:.8"></div></div>
+<a class="continue" href="/cart" style="display:block;text-align:center;text-decoration:none">Open cart</a>
+</section></main>
+<a class="cart-dock" id="cartDock" href="/cart" hidden><span><strong id="dockCount">0 items</strong> · <strong id="dockTotal">₹0</strong></span><span>View cart ↓</span></a>
+<footer>Orders are confirmed by WhatsApp and paid directly via UPI.</footer>
+<script>
+const $=s=>document.querySelector(s),cart={},CART_KEY='amma-pantry-cart';let products=[],S={},cat='All';
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const inr=n=>'₹'+n.toLocaleString('en-IN');
+const updateFloatParallax=()=>{
+  const hero=document.querySelector('.hero');
+  const scrollY=Math.min(window.scrollY,hero.offsetHeight*.65);
+  const progress=scrollY/Math.max(1,hero.offsetHeight*.65);
+  const copyProgress=Math.max(0,Math.min(1,(progress-.1)/.28));
+  const heroCopy=document.querySelector('.hero-copy');
+  heroCopy.style.opacity=String(1-copyProgress);
+  heroCopy.style.translate=`0 ${-copyProgress*18}px`;
+  const mobile=window.matchMedia('(max-width: 700px)').matches;
+  document.querySelectorAll('.float-food').forEach(food=>{
+    const delay=Number(food.dataset.scrollDelay||0);
+    const pathProgress=Math.max(0,Math.min(1,(progress-delay)/(1-delay)));
+    const direction=Number(mobile?food.dataset.scrollMobile:food.dataset.scrollDirection);
+    const travel=hero.clientWidth*.82*pathProgress*direction;
+    const lane=Number(food.dataset.scrollLane||0)*hero.clientHeight*progress;
+    food.style.setProperty('--scroll-x',`${travel}px`);
+    food.style.setProperty('--scroll-y',`${scrollY*.82+lane}px`);
+  });
+};
+if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+  let scrollFrame=0;
+  window.addEventListener('scroll',()=>{
+    if(scrollFrame)return;
+    scrollFrame=requestAnimationFrame(()=>{updateFloatParallax();scrollFrame=0;});
+  },{passive:true});
+  updateFloatParallax();
+}
+async function init(){
+  try{Object.assign(cart,JSON.parse(localStorage.getItem(CART_KEY)||'{}'));}catch{}
+  const r=await(await fetch('/api/products')).json();products=r.products;S=r.settings;
+  for(const id of Object.keys(cart))if(!products.some(p=>p.id===id))delete cart[id];
+  $('#shop').textContent=S.shopName;document.title=S.shopName;
+  $('#tabs').innerHTML=['All','Pickles','Snacks'].map(c=>`<button data-c="${c}" class="${c==='All'?'on':''}">${c}</button>`).join('');
+  $('#tabs').onclick=e=>{if(e.target.dataset.c){cat=e.target.dataset.c;[...$('#tabs').children].forEach(b=>b.classList.toggle('on',b===e.target));grid()}};
+  grid();calc();
+}
+function grid(){
+  const list=products.filter(p=>cat==='All'||p.category===cat);
+  $('#grid').innerHTML=list.length?list.map(p=>`<div class="jar"><div><small>${esc(p.category)} · ${esc(p.unit)}</small><h3>${esc(p.name)}</h3><p>${esc(p.desc)}</p>
+  <div class="row"><span class="price">${inr(p.price)}</span><div class="qty"><button aria-label="Remove one ${esc(p.name)}" onclick="chg('${p.id}',-1)">−</button><b id="q-${p.id}">${cart[p.id]||0}</b><button aria-label="Add one ${esc(p.name)}" onclick="chg('${p.id}',1)">+</button></div></div></div></div>`).join(''):'<p>No items in this category right now.</p>';
+}
+function chg(id,d){cart[id]=Math.max(0,Math.min(50,(cart[id]||0)+d));const q=$('#q-'+id);if(q)q.textContent=cart[id];calc()}
+function calc(){
+  const items=products.filter(p=>cart[p.id]>0);let sub=0;
+  const itemCount=items.reduce((count,p)=>count+cart[p.id],0);
+  try{localStorage.setItem(CART_KEY,JSON.stringify(cart));}catch{}
+  $('#lines').innerHTML=items.length?items.map(p=>{sub+=p.price*cart[p.id];return `<div class="row"><span>${esc(p.name)} (${esc(p.unit)}) × ${cart[p.id]}</span><span>${inr(p.price*cart[p.id])}</span></div>`}).join(''):'<p>Nothing added yet. Pick something above.</p>';
+  let fee=S.deliveryFee;
+  if(S.freeAbove>0&&sub>=S.freeAbove)fee=0;if(!items.length)fee=0;
+  $('#sub').textContent=inr(sub);$('#fee').textContent=fee?inr(fee):(items.length?'Free':'₹0');$('#tot').textContent=inr(sub+fee);
+  $('#cartCount').textContent=`${itemCount} ${itemCount===1?'item':'items'}`;
+  $('#dockCount').textContent=`${itemCount} ${itemCount===1?'item':'items'}`;
+  $('#dockTotal').textContent=inr(sub);
+  $('#cartDock').hidden=!itemCount;
+  $('#hint').textContent=S.freeAbove>0&&sub<S.freeAbove&&items.length?`Add ${inr(S.freeAbove-sub)} more for free delivery.`:'';
+}
+init();
+</script></body></html>

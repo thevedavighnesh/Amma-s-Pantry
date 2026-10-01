@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Amma's Pantry | Bottle Study</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--green:#23462f;--olive:#78845a;--chilli:#ef5638;--paper:#ef5638;--pink:#eed8ce;--sage:#dce4cb;--ink:#20251d;--line:#d8ceba;--lemon:#ffe879;--cream:#fffdf8}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--paper);color:var(--lemon);font:16px/1.5 'DM Sans',sans-serif}
+    a{color:inherit}
+    .nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:0 max(22px,calc((100% - 1240px)/2));background:var(--chilli);border-bottom:1px solid rgba(255,232,121,.35)}
+    .wordmark{font:800 25px/1 'DM Sans',sans-serif;color:var(--lemon);text-decoration:none}
+    .wordmark span{display:block;margin-top:5px;color:#fff0bd;font-size:9px;letter-spacing:.17em;text-transform:uppercase}
+    .nav-links{display:flex;align-items:center;gap:20px;font-size:13px;font-weight:700}
+    .nav-links a{text-underline-offset:4px}
+    .scroll-track{position:relative;height:calc(100svh + 260px);min-height:940px}
+    .scene{position:sticky;top:0;height:100svh;min-height:680px;overflow:hidden;isolation:isolate;background:var(--chilli)}
+    .scene-copy{position:absolute;z-index:3;left:max(6vw,26px);bottom:10%;width:min(43%,510px);transition:none}
+    .eyebrow{margin:0 0 14px;color:var(--lemon);font-size:11px;font-weight:800;letter-spacing:.17em;text-transform:uppercase}
+    h1,h2,p{margin-top:0}
+    h1{position:absolute;z-index:3;top:9%;left:3%;right:3%;max-width:none;margin:0;color:var(--lemon);font:900 clamp(76px,15vw,205px)/.78 'DM Sans',sans-serif;letter-spacing:0;text-align:center;white-space:nowrap}
+    #motionText{display:inline-block;color:var(--lemon)}
+    .intro{max-width:38ch;margin:0;color:#fff1ce;font-size:15px}
+    .shop-link{display:inline-flex;align-items:center;gap:12px;margin-top:20px;padding:13px 18px;border:1.5px solid var(--lemon);border-radius:999px;background:transparent;color:var(--lemon);text-decoration:none;font-size:13px;font-weight:800}
+    .shop-link:hover{background:var(--lemon);color:var(--chilli)}
+    .jar-photo,.jar-fallback{position:absolute;z-index:2;top:53%;right:7%;width:min(54vw,650px);height:min(76vh,700px);object-fit:contain;transform:translate3d(var(--jar-x,0px),-50%,0);will-change:transform}
+    .jar-photo{mix-blend-mode:multiply;clip-path:ellipse(47% 48% at 50% 51%)}
+    .jar-fallback[hidden]{display:none}
+    .jar-fallback{z-index:4;right:15%;width:min(36vw,420px);height:min(64vh,600px);filter:drop-shadow(0 28px 28px rgba(39,42,30,.2))}
+    .jar-body{position:absolute;left:10%;right:10%;bottom:4%;height:72%;border-radius:19% 19% 23% 23%;background:linear-gradient(180deg,#bf8833 0 29%,#eee9dc 30% 100%);box-shadow:inset 10px 0 18px rgba(255,255,255,.44),inset -12px 0 18px rgba(64,48,26,.17),0 8px 4px rgba(52,44,33,.15)}
+    .jar-rim{position:absolute;z-index:2;top:14%;left:7%;right:7%;height:17%;border-radius:12px 12px 22px 22px;background:linear-gradient(180deg,#e7bd67,#a66b22 72%,#85551e);box-shadow:0 8px 10px rgba(49,40,26,.2)}
+    .jar-neck{position:absolute;z-index:1;top:6%;left:31%;right:31%;height:15%;border-radius:12px 12px 0 0;background:linear-gradient(90deg,#a56d27,#d6a84e 40%,#b17a32);}
+    .jar-lid{position:absolute;z-index:3;top:0;left:34%;right:34%;height:9%;border-radius:9px 9px 3px 3px;background:linear-gradient(90deg,#bc8435,#e1b454 45%,#aa7027);box-shadow:inset 0 3px 6px rgba(255,255,255,.4)}
+    .jar-label{position:absolute;z-index:4;left:50%;top:56%;transform:translate(-50%,-50%);color:var(--green);font:22px/1.05 'DM Serif Display',serif;text-align:center;white-space:nowrap}
+    .jar-label small{display:block;margin-top:6px;font:700 9px/1 'DM Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase}
+    .scroll-mark{position:absolute;z-index:5;bottom:24px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:9px;color:var(--lemon);font-size:10px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;white-space:nowrap}
+    .scroll-mark:after{content:"";width:1px;height:26px;background:var(--lemon)}
+    .ticker{overflow:hidden;padding:16px 0;background:var(--chilli);border-top:1px solid rgba(255,232,121,.25);border-bottom:1px solid rgba(255,232,121,.25);color:var(--lemon);font-size:clamp(21px,3vw,38px);font-weight:800;white-space:nowrap}
+    .ticker-track{display:flex;width:max-content;animation:ticker-move 26s linear infinite}
+    .ticker span{padding-right:35px}
+    @keyframes ticker-move{to{transform:translateX(-50%)}}
+    .after-scene{min-height:42vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:35px;padding:55px max(24px,calc((100% - 1100px)/2));background:var(--chilli);color:var(--lemon)}
+    .after-scene h2{max-width:8ch;margin:0;font:800 clamp(45px,7vw,88px)/.9 'DM Sans',sans-serif}
+    .after-scene p{max-width:38ch;margin:0;color:#fff1ce}
+    .catalog{max-width:1240px;margin:0 auto;padding:58px 26px 76px;background:var(--chilli);color:var(--lemon)}
+    .catalog-heading{display:flex;justify-content:center;align-items:center;gap:20px;margin-bottom:28px;text-align:center}
+    .catalog-heading h2{margin:0;color:var(--lemon);font:900 clamp(43px,8vw,96px)/.9 'DM Sans',sans-serif;text-transform:uppercase}
+    .catalog-heading p{max-width:34ch;margin:14px auto 0;color:#fff1ce;font-size:14px}
+    .filters{display:flex;justify-content:center;gap:8px;margin-bottom:22px}
+    .filters button{padding:9px 17px;border:1px solid var(--lemon);background:transparent;color:var(--lemon);font-size:12px;font-weight:800;cursor:pointer}
+    .filters button[aria-pressed="true"]{background:var(--lemon);color:var(--chilli)}
+    .products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,4vw,48px)}
+    .product{display:flex;flex-direction:column;min-width:0;padding:0 0 18px;background:transparent;border:0;color:var(--lemon)}
+    .product-photo{display:grid;place-items:center;width:100%;aspect-ratio:1/1.08;margin-bottom:12px;background:var(--cream);overflow:hidden}
+    .product-photo img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply}
+    .product small{color:#fff1ce;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+    .product h3{margin:5px 0;color:var(--lemon);font:700 23px/1.04 'DM Sans',sans-serif}
+    .product p{flex:1;margin:0 0 12px;color:#fff1ce;font-size:12px}
+    .product-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .product-price{color:var(--lemon);font-weight:800}
+    .quantity{display:flex;align-items:center;gap:8px}
+    .quantity button{width:30px;height:30px;border:1px solid var(--lemon);border-radius:50%;background:transparent;color:var(--lemon);font-size:18px;line-height:1;cursor:pointer}
+    .quantity button:hover{background:var(--lemon);color:var(--chilli)}
+    .quantity output{min-width:16px;text-align:center;font-size:13px;font-weight:800}
+    .empty-products{grid-column:1/-1;padding:22px 0;color:#fff1ce}
+    .cart-dock{position:fixed;z-index:8;left:50%;bottom:16px;transform:translateX(-50%);display:flex;justify-content:space-between;align-items:center;gap:26px;width:min(430px,calc(100vw - 32px));padding:13px 17px;border:1px solid var(--lemon);border-radius:999px;background:var(--chilli);color:var(--lemon);text-decoration:none;font-size:13px;font-weight:700;box-shadow:0 12px 30px rgba(31,39,27,.24)}
+    .cart-dock[hidden]{display:none}
+    .cart-dock strong{color:var(--lemon)}
+    footer{padding:20px;text-align:center;color:var(--lemon);font-size:12px;background:var(--chilli)}
+    @media(max-width:700px){
+      .nav{height:68px;padding:0 18px}.wordmark{font-size:21px}.nav-links{gap:14px;font-size:11px}
+      .scroll-track{height:calc(100svh + 280px);min-height:1060px}
+      .scene{min-height:780px;background:linear-gradient(180deg,var(--pink) 0 49%,var(--sage) 49% 100%)}
+      .scene-copy{left:22px;top:26%;width:calc(100% - 44px);transform:none}
+      .eyebrow{font-size:9px;margin-bottom:10px}
+      h1{max-width:12ch;font-size:clamp(52px,15vw,74px);margin-bottom:10px}
+      .intro{max-width:32ch;font-size:14px}
+      .shop-link{margin-top:15px;padding:11px 14px}
+      .jar-photo{top:67%;right:0;width:75vw;height:56vh;max-height:490px}
+      .jar-fallback{top:65%;right:5%;width:60vw;height:44vh}
+      .jar-label{font-size:18px}
+      .scroll-mark{bottom:15px;font-size:9px}
+      .after-scene{min-height:38vh;align-items:flex-start;flex-direction:column;justify-content:center;padding:36px 22px;gap:13px}
+      .catalog{padding:38px 18px 54px}.catalog-heading{align-items:start;flex-direction:column;gap:9px}.catalog-heading p{font-size:13px}.products{grid-template-columns:1fr;gap:10px}.product{min-height:160px;padding:15px}
+    }
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="Main navigation">
+    <a class="wordmark" href="/">Amma's Pantry<span>Small-batch family kitchen</span></a>
+    <div class="nav-links"><a href="/">Original storefront</a><a href="/cart">Cart</a></div>
+  </nav>
+  <main>
+    <section class="scroll-track" id="bottleTrack" aria-label="Pickle jar story">
+      <div class="scene" id="bottleScene">
+        <div class="scene-copy">
+          <p class="eyebrow">Homemade · small batch · full of care</p>
+          <h1>A little jar<br>of <span id="motionText">home.</span></h1>
+          <p class="intro">Slow-made pickles bring a familiar taste to the table, one spoonful at a time.</p>
+          <a class="shop-link" href="#catalog">Explore the kitchen <span aria-hidden="true">↓</span></a>
+        </div>
+        <img class="jar-photo" id="pickleBottle" alt="Ceramic pickle jar with an amber glazed lid">
+        <div class="jar-fallback" id="jarFallback" aria-hidden="true" hidden>
+          <span class="jar-lid"></span><span class="jar-neck"></span><span class="jar-rim"></span><span class="jar-body"></span>
+          <span class="jar-label">AMMA'S<small>HOUSE PICKLE</small></span>
+        </div>
+        <div class="scroll-mark" aria-hidden="true">A story in every jar</div>
+      </div>
+    </section>
+    <section class="after-scene">
+      <h2>Made to be shared.</h2>
+      <p>Pick a favourite, add it to your cart, and we’ll confirm delivery with you on WhatsApp.</p>
+      <a class="shop-link" href="#catalog">Shop pickles and snacks</a>
+    </section>
+    <section class="catalog" id="catalog" aria-labelledby="catalogTitle">
+      <div class="catalog-heading"><h2 id="catalogTitle">From our kitchen</h2><p>Browse every available pickle and snack, add your favourites, then review your order in the cart.</p></div>
+      <div class="filters" id="filters" role="group" aria-label="Filter products"></div>
+      <div class="products" id="products" aria-live="polite"></div>
+    </section>
+  </main>
+  <a class="cart-dock" id="cartDock" href="/cart" hidden><span><strong id="cartCount">0 items</strong> · <strong id="cartTotal">₹0</strong></span><span>View cart →</span></a>
+  <footer>Amma's Pantry · Homemade, one batch at a time.</footer>
+  <script>
+    const track=document.querySelector('#bottleTrack');
+    const scene=document.querySelector('#bottleScene');
+    const bottle=document.querySelector('#pickleBottle');
+    const fallback=document.querySelector('#jarFallback');
+    const colorText=document.querySelector('#motionText');
+    const productsElement=document.querySelector('#products');
+    const filtersElement=document.querySelector('#filters');
+    const cartDock=document.querySelector('#cartDock');
+    const CART_KEY='amma-pantry-cart';
+    const startColor=[35,70,47];
+    const endColor=[198,94,43];
+    let frame=0,products=[],settings={},cart={},category='All';
+
+    function showJarFallback(){
+      if(bottle.naturalWidth)return;
+      bottle.hidden=true;
+      fallback.hidden=false;
+      updateBottleScene();
+    }
+    bottle.addEventListener('error',showJarFallback);
+    bottle.addEventListener('load',updateBottleScene);
+
+    async function loadJarPhoto(){
+      try{
+        const response=await fetch('/api/pickle-bottle-image');
+        const data=await response.json();
+        if(response.ok&&data.src){bottle.src=data.src;return;}
+      }catch{}
+      showJarFallback();
+    }
+
+    const money=value=>'₹'+Number(value||0).toLocaleString('en-IN');
+    const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+
+    function renderProducts(){
+      const visible=products.filter(product=>category==='All'||product.category===category);
+      productsElement.innerHTML=visible.length?visible.map(product=>`<article class="product">
+        <small>${escapeHtml(product.category)} · ${escapeHtml(product.unit)}</small>
+        <h3>${escapeHtml(product.name)}</h3><p>${escapeHtml(product.desc)}</p>
+        <div class="product-bottom"><span class="product-price">${money(product.price)}</span>
+          <div class="quantity"><button type="button" aria-label="Remove one ${escapeHtml(product.name)}" data-id="${escapeHtml(product.id)}" data-change="-1">−</button><output>${cart[product.id]||0}</output><button type="button" aria-label="Add one ${escapeHtml(product.name)}" data-id="${escapeHtml(product.id)}" data-change="1">+</button></div>
+        </div></article>`).join(''):'<p class="empty-products">No items are available in this category right now.</p>';
+      productsElement.querySelectorAll('[data-change]').forEach(button=>button.addEventListener('click',()=>changeQuantity(button.dataset.id,Number(button.dataset.change))));
+      filtersElement.querySelectorAll('button').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.category===category)));
+    }
+
+    function renderCartDock(){
+      const count=products.reduce((sum,product)=>sum+(cart[product.id]||0),0);
+      const subtotal=products.reduce((sum,product)=>sum+product.price*(cart[product.id]||0),0);
+      document.querySelector('#cartCount').textContent=`${count} ${count===1?'item':'items'}`;
+      document.querySelector('#cartTotal').textContent=money(subtotal);
+      cartDock.hidden=!count;
+      try{localStorage.setItem(CART_KEY,JSON.stringify(cart));}catch{}
+    }
+
+    function changeQuantity(id,change){
+      cart[id]=Math.max(0,Math.min(50,(cart[id]||0)+change));
+      if(!cart[id])delete cart[id];
+      renderProducts();
+      renderCartDock();
+    }
+
+    async function loadCatalog(){
+      try{
+        const response=await fetch('/api/products');
+        if(!response.ok)throw new Error('Menu unavailable. Please refresh to try again.');
+        const data=await response.json();
+        products=data.products||[];
+        settings=data.settings||{};
+        try{cart=JSON.parse(localStorage.getItem(CART_KEY)||'{}')||{};}catch{cart={};}
+        for(const id of Object.keys(cart))if(!products.some(product=>product.id===id))delete cart[id];
+        const categories=['All',...new Set(products.map(product=>product.category))];
+        filtersElement.innerHTML=categories.map(item=>`<button type="button" data-category="${escapeHtml(item)}" aria-pressed="${item==='All'}">${escapeHtml(item)}</button>`).join('');
+        filtersElement.addEventListener('click',event=>{
+          const button=event.target.closest('[data-category]');
+          if(!button)return;
+          category=button.dataset.category;
+          renderProducts();
+        });
+        renderProducts();
+        renderCartDock();
+      }catch(error){productsElement.innerHTML=`<p class="empty-products">${escapeHtml(error.message)}</p>`;}
+    }
+
+    function updateBottleScene(){
+      const distance=Math.max(1,track.offsetHeight-scene.offsetHeight);
+      const progress=Math.max(0,Math.min(1,-track.getBoundingClientRect().top/distance));
+      const visual=bottle.hidden?fallback:bottle;
+      const bottleWidth=visual.getBoundingClientRect().width;
+      const startLeft=scene.clientWidth-bottleWidth-scene.clientWidth*.05;
+      const targetLeft=scene.clientWidth*.035;
+      const movement=(targetLeft-startLeft)*progress;
+      visual.style.setProperty('--jar-x',`${movement}px`);
+      const color=startColor.map((channel,index)=>Math.round(channel+(endColor[index]-channel)*progress));
+      colorText.style.color=`rgb(${color.join(',')})`;
+    }
+
+    window.addEventListener('scroll',()=>{
+      if(frame)return;
+      frame=requestAnimationFrame(()=>{updateBottleScene();frame=0;});
+    },{passive:true});
+    window.addEventListener('resize',updateBottleScene);
+    loadJarPhoto();
+    loadCatalog();
+    updateBottleScene();
+  </script>
+</body>
+</html>

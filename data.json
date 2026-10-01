@@ -1,0 +1,79 @@
+{
+  "settings": {
+    "shopName": "Amma's Pantry",
+    "deliveryFee": 50,
+    "freeAbove": 600,
+    "areaFees": {
+      "560001": 30
+    },
+    "whatsappNumber": "919876543210"
+  },
+  "products": [
+    {
+      "id": "p1",
+      "name": "Raw Mango Pickle",
+      "category": "Pickles",
+      "unit": "250 g",
+      "price": 180,
+      "available": true,
+      "desc": "Sun-cured, cold-pressed sesame oil."
+    },
+    {
+      "id": "p2",
+      "name": "Garlic Pickle",
+      "category": "Pickles",
+      "unit": "250 g",
+      "price": 210,
+      "available": true,
+      "desc": "Whole cloves, slow-cooked with red chilli."
+    },
+    {
+      "id": "p3",
+      "name": "Lemon Pickle",
+      "category": "Pickles",
+      "unit": "250 g",
+      "price": 170,
+      "available": true,
+      "desc": "Aged 21 days in glass jars."
+    },
+    {
+      "id": "s1",
+      "name": "Chicken Pickle",
+      "category": "Pickles",
+      "unit": "500 g",
+      "price": 800,
+      "available": true,
+      "desc": "made with pickle"
+    },
+    {
+      "id": "s2",
+      "name": "Banana Chips",
+      "category": "Snacks",
+      "unit": "250 g",
+      "price": 140,
+      "available": true,
+      "desc": "Coconut oil, sea salt."
+    },
+    {
+      "id": "s3",
+      "name": "Kara Boondi",
+      "category": "Snacks",
+      "unit": "200 g",
+      "price": 100,
+      "available": true,
+      "desc": "Spicy, with curry leaves and peanuts."
+    }
+  ],
+  "orders": [],
+  "reviews": [
+    {
+      "id": "rv-1790848042047",
+      "name": "vighnesh",
+      "phone": "6362199407",
+      "rating": 5,
+      "message": "super",
+      "image": "",
+      "created": "2026-10-01T09:47:22.047Z"
+    }
+  ]
+}

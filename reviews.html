@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Customer Reviews</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=Hind:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--green:#23462f;--olive:#6d7c4c;--gold:#d7a93a;--chilli:#c65e2b;--terracotta:#b86a39;--paper:#f7f2e8;--card:#fffdf9;--ink:#1f241d;--line:#d8ceba;--shadow:0 18px 40px rgba(36,40,28,.10)}
+    *{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#f7f2e8 0%,#f2ead8 100%);color:var(--ink);font:16px/1.6 Hind,sans-serif}
+    h1,h2,h3{font-family:'Bricolage Grotesque',sans-serif;letter-spacing:-.04em;margin:0}
+    .wrap{max-width:1100px;margin:0 auto;padding:24px 20px 48px}
+    .topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 0 20px;flex-wrap:wrap}
+    .brand{font-weight:800;color:var(--green);font-size:1.1rem}
+    .nav a{color:var(--ink);text-decoration:none;font-weight:700;margin-left:12px}
+    .hero{background:radial-gradient(circle at top left,#31604b 0%,#1f3e31 38%,#173225 100%);border-radius:26px;padding:28px;color:#fff;box-shadow:var(--shadow)}
+    .hero h1{font-size:clamp(2.3rem,5vw,4rem);margin-bottom:10px}
+    .hero p{margin:0;max-width:60ch;opacity:.9}
+    .page{display:grid;grid-template-columns:1.1fr 1.5fr;gap:24px;margin-top:28px}
+    .card{background:var(--card);border-radius:22px;padding:24px;box-shadow:var(--shadow);border:1px solid rgba(35,70,47,.12)}
+    form{display:grid;gap:14px}
+    label{font-weight:700;font-size:.82rem;display:block;margin-bottom:6px;color:#2f362d}
+    input, textarea, select{width:100%;padding:11px 12px;border-radius:12px;border:1.5px solid var(--line);background:#fff;color:var(--ink);font:inherit}
+    textarea{min-height:120px;resize:vertical}
+    button{border:none;background:linear-gradient(135deg,var(--chilli),var(--terracotta));color:#fff;padding:14px 18px;border-radius:12px;font:700 16px Hind;cursor:pointer;box-shadow:0 12px 20px rgba(198,94,43,.22);display:inline-flex;align-items:center;justify-content:center;line-height:1.2;letter-spacing:.02em;text-rendering:optimizeLegibility}
+    .status{margin-top:8px;font-weight:700}
+    .status.ok{color:#2f7d4f}.status.err{color:var(--chilli)}
+    .reviews{display:grid;gap:18px}
+    .review{background:linear-gradient(180deg,#fffdfb,#f7f0e3);border:1px solid rgba(35,70,47,.12);border-radius:18px;padding:18px}
+    .meta{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+    .stars{color:var(--gold);letter-spacing:.08em}
+    .phone{font-size:.8rem;color:#586554}
+    .review p{margin:10px 0 0;line-height:1.7}
+    .review img{max-width:100%;max-height:240px;border-radius:14px;margin-top:12px;border:1px solid rgba(35,70,47,.12);object-fit:cover}
+    @media (max-width: 840px){.page{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">Amma's Pantry</div>
+      <div class="nav"><a href="/">Home</a><a href="/reviews">Reviews</a><a href="/admin">Admin</a></div>
+    </div>
+
+    <div class="hero">
+      <h1>What our customers say</h1>
+      <p>Real stories from families who love our pickles, snacks, and home-style goodness. Share your experience and a quick photo if you’d like.</p>
+    </div>
+
+    <div class="page">
+      <div class="card">
+        <h2 style="margin-bottom:16px">Leave a review</h2>
+        <form id="reviewForm" enctype="multipart/form-data">
+          <div>
+            <label for="name">Your name</label>
+            <input id="name" name="name" required>
+          </div>
+          <div>
+            <label for="phone">Phone number</label>
+            <input id="phone" name="phone" inputmode="numeric" maxlength="10" placeholder="10-digit phone" required>
+          </div>
+          <div>
+            <label for="rating">Rating</label>
+            <select id="rating" name="rating" required>
+              <option value="5">5 - Excellent</option>
+              <option value="4">4 - Very good</option>
+              <option value="3">3 - Good</option>
+              <option value="2">2 - Fair</option>
+              <option value="1">1 - Poor</option>
+            </select>
+          </div>
+          <div>
+            <label for="message">Your review</label>
+            <textarea id="message" name="message" required placeholder="Tell us what you loved about your order..."></textarea>
+          </div>
+          <div>
+            <label for="image">Photo upload (optional)</label>
+            <input id="imageFile" name="imageFile" type="file" accept="image/*">
+          </div>
+          <div>
+            <label for="imageUrl">Or paste an image URL</label>
+            <input id="imageUrl" name="image" type="url" placeholder="https://example.com/your-photo.jpg">
+          </div>
+          <button type="submit">Submit review</button>
+          <div id="status" class="status" role="status"></div>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2 style="margin-bottom:16px">Recent reviews</h2>
+        <div id="reviewsList" class="reviews"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+    const stars = n => '★'.repeat(n) + '☆'.repeat(5 - n);
+
+    async function loadReviews() {
+      const res = await fetch('/api/reviews');
+      const data = await res.json();
+      const list = document.getElementById('reviewsList');
+      const reviews = data.reviews || [];
+      if (!reviews.length) {
+        list.innerHTML = '<div class="review"><p>No reviews yet. Be the first to share your experience.</p></div>';
+        return;
+      }
+      list.innerHTML = reviews.map(r => `
+        <article class="review">
+          <div class="meta">
+            <div>
+              <strong>${esc(r.name)}</strong>
+              <div class="phone">${esc(r.phone)}</div>
+            </div>
+            <div class="stars" aria-label="${r.rating} out of 5 stars">${stars(r.rating)}</div>
+          </div>
+          <div class="phone">${new Date(r.created).toLocaleDateString('en-IN')}</div>
+          <p>${esc(r.message)}</p>
+          ${r.image ? `<img src="${r.image}" alt="${esc(r.name)} review photo">` : ''}
+        </article>
+      `).join('');
+    }
+
+    document.getElementById('reviewForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const form = event.target;
+      const status = document.getElementById('status');
+      const formData = new FormData(form);
+      try {
+        const res = await fetch('/api/reviews', { method: 'POST', body: formData });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Could not submit review.');
+        status.textContent = 'Thank you! Your review has been posted.';
+        status.className = 'status ok';
+        form.reset();
+        await loadReviews();
+      } catch (err) {
+        status.textContent = err.message;
+        status.className = 'status err';
+      }
+    });
+
+    loadReviews();
+  </script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shop admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=Hind:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--green:#23462f;--olive:#6d7c4c;--gold:#d7a93a;--chilli:#c65e2b;--terracotta:#b86a39;--paper:#f7f2e8;--cream:#fbf7f1;--ink:#1f241d;--line:#d8ceba;--card:#fffdf9;--shadow:0 18px 40px rgba(36,40,28,.10)}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#f7f2e8 0%,#f2ead8 100%);color:var(--ink);font:16px/1.5 Hind,sans-serif;padding:24px}
+.wrap{max-width:1080px;margin:0 auto}h1,h2{font-family:'Bricolage Grotesque',sans-serif;margin:0 0 12px;letter-spacing:-.04em}
+.card{background:linear-gradient(180deg,#fffdfb,#f7f0e3);border:1px solid rgba(35,70,47,.12);border-radius:18px;padding:20px;margin-bottom:18px;box-shadow:var(--shadow)}
+input,select,textarea{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:12px;background:#fff;box-shadow:inset 0 1px 2px rgba(0,0,0,.02);color:var(--ink);font:inherit}
+label{font-size:.82rem;font-weight:700;display:block;margin-bottom:6px;color:#2f362d}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.p{border-top:1px dashed rgba(35,70,47,.2);padding:12px 0}.p:first-of-type{border-top:0}
+button{font:600 15px Hind;padding:10px 16px;border-radius:10px;border:1.5px solid var(--green);background:#fff;color:var(--ink);cursor:pointer;transition:all .2s ease}
+button:hover{transform:translateY(-1px)}
+button.main{background:linear-gradient(135deg,var(--green),#2d5b42);color:#fff;border:none;box-shadow:0 10px 20px rgba(35,70,47,.18)}
+button.del{border-color:var(--chilli);color:var(--chilli);background:rgba(198,94,43,.04)}
+.chk{display:flex;gap:8px;align-items:center;padding-top:22px}.chk input{width:auto}
+table{width:100%;border-collapse:collapse;font-size:.92rem}td,th{text-align:left;padding:10px 8px;border-top:1px solid rgba(35,70,47,.15);vertical-align:top}
+th{color:var(--green);font-size:.8rem;text-transform:uppercase;letter-spacing:.08em}
+#m{font-weight:700;margin-left:10px;color:var(--green)}.ov{overflow-x:auto}
+</style></head><body><div class="wrap">
+<h1>Shop admin</h1>
+<div class="card" id="login"><label for="pw">Admin password</label><div style="display:flex;gap:8px"><input id="pw" type="password"><button class="main" onclick="go()">Sign in</button></div><div id="le" style="color:var(--chilli)"></div></div>
+<div id="app" hidden>
+<div class="card"><h2>Delivery and shop</h2><div class="g">
+<div><label>Shop name</label><input id="sn"></div>
+<div><label>WhatsApp number</label><input id="wn" placeholder="919876543210"></div>
+<div><label>Standard delivery fee (₹)</label><input id="df" type="number" min="0"></div>
+<div><label>Free delivery above (₹, 0 = never)</label><input id="fa" type="number" min="0"></div></div>
+<label style="margin-top:10px">Special delivery fees by pincode (one per line, like 560001=30)</label><textarea id="af" rows="3"></textarea></div>
+<div class="card"><h2>Products and prices</h2><div id="ps"></div>
+<button onclick="add()">Add product</button></div>
+<button class="main" onclick="saveAll()">Save all changes</button><span id="m" role="status"></span>
+<div class="card" style="margin-top:18px"><h2>Orders</h2><div class="ov"><table><thead><tr><th>Placed</th><th>Customer</th><th>Items</th><th>Total</th><th>Deliver on</th><th>Status</th></tr></thead><tbody id="os"></tbody></table></div></div>
+<div class="card"><h2>Customer reviews</h2><div id="reviewsList"></div></div>
+</div>
+<script>
+let D,key='';const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+async function api(m,u,b){const r=await fetch(u,{method:m,headers:{'Content-Type':'application/json','x-admin-key':key},body:b?JSON.stringify(b):undefined});const d=await r.json();if(!r.ok)throw new Error(d.error);return d}
+async function go(){key=$('#pw').value;try{D=await api('GET','/api/admin/data');$('#login').hidden=true;$('#app').hidden=false;draw()}catch(e){$('#le').textContent=e.message}}
+function draw(){
+  const s=D.settings;$('#sn').value=s.shopName;$('#wn').value=s.whatsappNumber||'';$('#df').value=s.deliveryFee;$('#fa').value=s.freeAbove;
+  $('#af').value=Object.entries(s.areaFees).map(([k,v])=>k+'='+v).join('\n');
+  $('#ps').innerHTML=D.products.map((p,i)=>`<div class="p"><div class="g">
+  <div><label>Name</label><input data-i="${i}" data-k="name" value="${esc(p.name)}"></div>
+  <div><label>Category</label><select data-i="${i}" data-k="category"><option${p.category==='Pickles'?' selected':''}>Pickles</option><option${p.category==='Snacks'?' selected':''}>Snacks</option></select></div>
+  <div><label>Size</label><input data-i="${i}" data-k="unit" value="${esc(p.unit)}"></div>
+  <div><label>Price (₹)</label><input type="number" min="0" data-i="${i}" data-k="price" value="${p.price}"></div>
+  <div class="chk"><input type="checkbox" id="a${i}" data-i="${i}" data-k="available"${p.available?' checked':''}><label for="a${i}">In stock</label></div></div>
+  <div style="display:flex;gap:8px;margin-top:8px"><input data-i="${i}" data-k="desc" placeholder="Short description" value="${esc(p.desc)}"><button class="del" onclick="rm(${i})">Remove</button></div></div>`).join('');
+  $('#os').innerHTML=D.orders.length?D.orders.map(o=>`<tr><td>${new Date(o.created).toLocaleString('en-IN')}</td>
+  <td>${esc(o.customer.name)}<br>${esc(o.customer.phone)}<br>${esc(o.customer.address)}, ${esc(o.customer.pincode)}${o.customer.note?'<br><i>'+esc(o.customer.note)+'</i>':''}</td>
+  <td>${o.lines.map(l=>esc(l.name)+' × '+l.qty).join('<br>')}</td><td>₹${o.total}<br><small>incl. ₹${o.fee} delivery</small></td><td>${esc(o.customer.date)}</td>
+  <td><select onchange="st('${o.id}',this.value)">${['awaiting payment','paid','packed','delivered'].map(x=>`<option${x===o.status?' selected':''}>${x}</option>`).join('')}</select></td></tr>`).join(''):'<tr><td colspan="6">No orders yet.</td></tr>';
+  $('#reviewsList').innerHTML = D.reviews && D.reviews.length ? D.reviews.map(r => `
+    <div style="padding:12px 0;border-top:1px solid rgba(35,70,47,.15)">
+      <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center"><strong>${esc(r.name)}</strong><span>${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</span></div>
+      <div style="font-size:.8rem;color:#586554;margin:4px 0">${esc(r.phone)} · ${new Date(r.created).toLocaleDateString('en-IN')}</div>
+      <p style="margin:8px 0">${esc(r.message)}</p>
+      ${r.image ? `<img src="${r.image}" alt="${esc(r.name)} review" style="max-width:220px;border-radius:12px;border:1px solid rgba(35,70,47,.15);max-height:180px;object-fit:cover;margin-top:6px">` : ''}
+      <div style="margin-top:12px"><button class="del" onclick="deleteReview('${r.id}')">Delete review</button></div>
+    </div>
+  `).join('') : '<p>No reviews yet.</p>';
+}
+$('#ps').addEventListener('input',e=>{const t=e.target,i=t.dataset.i;if(i!==undefined)D.products[i][t.dataset.k]=t.type==='checkbox'?t.checked:t.type==='number'?Number(t.value):t.value});
+const add=()=>{D.products.push({name:'New item',category:'Pickles',unit:'250 g',price:0,available:true,desc:''});draw()};
+const rm=i=>{if(confirm('Remove '+D.products[i].name+'?')){D.products.splice(i,1);draw()}};
+async function deleteReview(id){
+  if(!confirm('Delete this review?')) return;
+  try {
+    await api('DELETE','/api/admin/reviews/' + id);
+    D.reviews = D.reviews.filter(r => r.id !== id);
+    draw();
+    $('#m').textContent='Review deleted.';
+  } catch (e) { $('#m').textContent = e.message; }
+}
+async function saveAll(){
+  const fees={};$('#af').value.split('\n').forEach(l=>{const[a,b]=l.split('=').map(x=>x.trim());if(a&&b)fees[a]=Number(b)});
+  D.settings={shopName:$('#sn').value,whatsappNumber:$('#wn').value.trim().replace(/\D/g,'')||'919876543210',deliveryFee:Number($('#df').value),freeAbove:Number($('#fa').value),areaFees:fees};
+  try{await api('PUT','/api/admin/data',{products:D.products,settings:D.settings});$('#m').textContent='Saved.';D=await api('GET','/api/admin/data');draw()}catch(e){$('#m').textContent=e.message}
+}
+const st=(id,status)=>api('PATCH','/api/admin/orders/'+id,{status});
+$('#pw').addEventListener('keydown',e=>e.key==='Enter'&&go());
+</script></div></body></html>
