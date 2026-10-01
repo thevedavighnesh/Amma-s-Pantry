@@ -28,6 +28,7 @@ app.use(express.static(__dirname));
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 app.get('/cart', (req, res) => res.sendFile(path.join(__dirname, 'cart.html')));
 app.get('/third-design', (req, res) => res.sendFile(path.join(__dirname, 'third-design.html')));
+app.get('/fourth-design', (req, res) => res.sendFile(path.join(__dirname, 'fourth-design.html')));
 app.get('/reviews', (req, res) => res.sendFile(path.join(__dirname, 'reviews.html')));
 app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'admin.html')));
 const DB = path.join(__dirname, 'data.json');

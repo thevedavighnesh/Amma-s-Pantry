@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Amma's Pantry | Homemade Pickles</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{--coral:#d9664f;--coral-dark:#bf5039;--ink:#1d1a17;--muted:#5b534c;--white:#fff;--line:#1d1a17;--turmeric:#f2c75c;--leaf:#a9cf9f;--sky:#f0b7a4;--rose:#f3c6c9}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--white);color:var(--ink);font:300 17px/1.6 'Poppins',sans-serif}
+    a{color:inherit}
+    img{display:block;max-width:100%}
+    button{font-family:inherit}
+    a:focus-visible,button:focus-visible{outline:2px solid var(--coral);outline-offset:3px}
+    .header{position:fixed;z-index:30;inset:0 0 auto;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:24px 4vw;color:var(--white);transition:background .3s,color .3s,padding .3s,box-shadow .3s}
+    .header.scrolled{padding:16px 4vw;background:var(--white);color:var(--ink);box-shadow:0 1px 0 rgba(29,26,23,.08)}
+    .header nav{display:flex;gap:26px;font-size:15px}
+    .header nav a,.header-cart{text-decoration:none}
+    .header nav a:hover,.header-cart:hover{text-decoration:underline;text-underline-offset:5px}
+    .logo{font-size:30px;font-weight:500;text-decoration:none;letter-spacing:-.01em}
+    .header-cart{justify-self:end;display:flex;align-items:center;gap:8px;font-size:15px}
+    .header-cart svg{width:20px;height:20px}
+    .hero{position:relative;display:grid;place-items:center;min-height:100svh;overflow:hidden;background:var(--turmeric);text-align:center;color:var(--white)}
+    .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 45%}
+    .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(29,26,23,.35),rgba(29,26,23,.15) 40%,rgba(29,26,23,.45))}
+    .hero-content{position:relative;z-index:1;padding:0 6vw}
+    .hero h1{margin:0 0 26px;font-size:clamp(40px,5.6vw,72px);font-weight:500;line-height:1.1}
+    .btn{display:inline-block;padding:17px 46px;border:0;border-radius:0;background:var(--coral);color:var(--white);font-size:15px;font-weight:500;letter-spacing:.02em;text-decoration:none;cursor:pointer;transition:background .2s,color .2s}
+    .btn:hover{background:var(--coral-dark)}
+    .btn.light{background:var(--white);color:var(--coral)}
+    .btn.light:hover{background:var(--coral);color:var(--white)}
+    .section{padding:110px 4vw}
+    .section-head{max-width:760px;margin:0 auto 60px;text-align:center}
+    .section-head h2{margin:0 0 22px;font-size:clamp(30px,3.4vw,46px);font-weight:500;line-height:1.15}
+    .section-head p{margin:0;font-size:17px}
+    .products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:64px 6vw;max-width:1240px;margin:0 auto}
+    .product{display:flex;flex-direction:column;align-items:center;text-align:center}
+    .product-image{width:100%;aspect-ratio:1;overflow:hidden;background:#f7f2ea}
+    .product-image img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+    .product:hover .product-image img{transform:scale(1.04)}
+    .placeholder{display:grid;place-content:center;width:100%;height:100%;padding:20px;color:var(--coral);font-size:24px;font-weight:500;line-height:1.2}
+    .placeholder span{display:block;margin-top:8px;color:var(--muted);font-size:12px;font-weight:400;letter-spacing:.12em;text-transform:uppercase}
+    .product h3{margin:22px 0 4px;font-size:21px;font-weight:500;line-height:1.3}
+    .product .price{margin:0 0 6px;font-size:16px}
+    .product .desc{max-width:32ch;margin:0 0 20px;color:var(--muted);font-size:14px;line-height:1.55}
+    .buy{display:flex;align-items:stretch;gap:6px;width:100%;max-width:320px;margin-top:auto}
+    .stepper{display:flex;align-items:center;justify-content:space-between;min-width:98px;border-bottom:2px solid var(--line)}
+    .stepper button{width:32px;height:52px;border:0;background:none;color:var(--ink);font-size:22px;font-weight:300;cursor:pointer}
+    .stepper output{min-width:20px;text-align:center;font-size:16px;font-weight:400}
+    .buy .btn{flex:1;padding:0 12px;height:54px}
+    .buy .btn.added{background:var(--ink)}
+    .band{height:clamp(320px,62vw,860px);background:#f3c6c9 url('/images/products/murukku.png') center/cover fixed}
+    @supports (-webkit-touch-callout:none){.band{background-attachment:scroll}}
+    .story{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:7vw;max-width:1240px;margin:0 auto}
+    .story img{width:100%;aspect-ratio:4/5;object-fit:cover}
+    .story h2{margin:0 0 22px;font-size:clamp(30px,3.4vw,46px);font-weight:500;line-height:1.15}
+    .story p{margin:0 0 18px}
+    .newsletter{padding-bottom:70px;text-align:center}
+    .newsletter .section-head{margin-bottom:32px}
+    .tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:3vw;padding:70px 4vw 60px}
+    .tile{display:grid;place-items:center;aspect-ratio:1;overflow:hidden}
+    .tile img{width:62%;aspect-ratio:1;object-fit:cover;border-radius:50%;box-shadow:18px 22px 30px rgba(29,26,23,.22);transition:transform .5s}
+    .tile:hover img{transform:rotate(-6deg) scale(1.05)}
+    .tile:nth-child(1){background:var(--leaf)}.tile:nth-child(2){background:var(--sky)}.tile:nth-child(3){background:var(--turmeric)}.tile:nth-child(4){background:var(--rose)}
+    .footer{display:flex;justify-content:space-between;gap:40px;padding:56px 4vw 70px;background:var(--coral);color:var(--white)}
+    .footer h2{margin:0 0 34px;font-size:22px;font-weight:500}
+    .footer p{margin:0 0 30px;font-size:16px;line-height:1.7}
+    .footer-links{display:flex;flex-direction:column;align-items:flex-end;gap:10px;font-size:15px}
+    .footer-links a{text-decoration:none}
+    .footer-links a:hover{text-decoration:underline;text-underline-offset:4px}
+    .toast{position:fixed;z-index:40;right:24px;bottom:24px;display:flex;align-items:center;gap:18px;padding:16px 20px;background:var(--ink);color:var(--white);font-size:14px;transform:translateY(140%);transition:transform .3s}
+    .toast.show{transform:none}
+    .toast a{color:var(--turmeric);font-weight:500}
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+    .reveal.visible{opacity:1;transform:none}
+    @media(max-width:860px){
+      .header{grid-template-columns:auto 1fr auto;padding:18px 5vw}.header.scrolled{padding:14px 5vw}
+      .header nav{order:3;grid-column:1/-1;justify-content:center;gap:20px;margin-top:10px;font-size:13px}
+      .logo{font-size:22px}.header-cart{grid-column:3;font-size:13px}
+      .section{padding:76px 6vw}.section-head{margin-bottom:40px}
+      .products{grid-template-columns:repeat(2,minmax(0,1fr));gap:46px 5vw}
+      .story{grid-template-columns:1fr;gap:34px}
+      .tiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:4vw;padding:50px 6vw}
+      .band{background-attachment:scroll}
+    }
+    @media(max-width:560px){
+      .products{grid-template-columns:1fr}
+      .footer{flex-direction:column}.footer-links{align-items:flex-start}
+      .toast{left:16px;right:16px;bottom:16px;justify-content:space-between}
+    }
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.band{background-attachment:scroll}*{transition:none!important}}
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <nav aria-label="Main navigation"><a href="#shop">Shop</a><a href="#story">Our Story</a><a href="/reviews">Reviews</a></nav>
+    <a class="logo" href="/fourth-design">Amma's Pantry</a>
+    <a class="header-cart" href="/cart" aria-label="Cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 7h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 7Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg><span id="cartCount">0</span></a>
+  </header>
+
+  <section class="hero">
+    <img src="/images/products/mango-pickle.png" alt="A bowl of homemade raw mango pickle" fetchpriority="high">
+    <div class="hero-content">
+      <h1>Pickle Perfection</h1>
+      <a class="btn light" href="#shop">Shop Now</a>
+    </div>
+  </section>
+
+  <section class="section" id="shop">
+    <div class="section-head reveal">
+      <h2>Only the Finest Homemade Flavours</h2>
+      <p>Sun-cured, slow-cooked and packed in small batches straight from Amma's kitchen.</p>
+    </div>
+    <div class="products" id="products" aria-live="polite"></div>
+  </section>
+
+  <div class="band" role="img" aria-label="Freshly fried murukku"></div>
+
+  <section class="section" id="story">
+    <div class="story">
+      <img class="reveal" src="/images/products/chicken-pickle.png" alt="Homemade chicken pickle" loading="lazy">
+      <div class="reveal">
+        <h2>Our Story</h2>
+        <p>Every jar starts the way it always has at home: fresh mangoes, garlic and lemons, hand-ground spices and cold-pressed sesame oil, left to mature in glass jars.</p>
+        <p>No shortcuts and no preservatives, just the pickles and snacks we grew up on, made one batch at a time.</p>
+        <a class="btn" href="#shop">Taste the pantry</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section newsletter">
+    <div class="section-head reveal">
+      <h2>What's in the Jar?</h2>
+      <p>Message us on WhatsApp to hear what's fresh this week or to place an order.</p>
+    </div>
+    <a class="btn reveal" id="whatsappBtn" href="/cart">Message us</a>
+  </section>
+
+  <div class="tiles">
+    <div class="tile reveal"><img src="/images/products/gobi-pickle.png" alt="Gobi pickle" loading="lazy"></div>
+    <div class="tile reveal"><img src="/images/products/papad.png" alt="Crisp papad" loading="lazy"></div>
+    <div class="tile reveal"><img src="/images/products/gavvalu.png" alt="Gavvalu" loading="lazy"></div>
+    <div class="tile reveal"><img src="/images/products/mango-pickle.png" alt="Mango pickle" loading="lazy"></div>
+  </div>
+
+  <footer class="footer">
+    <div>
+      <h2>Amma's Pantry</h2>
+      <p>Homemade in small batches<br>Made to order, delivered with love<br><a id="footerWhatsapp" href="/cart">Order on WhatsApp</a></p>
+    </div>
+    <div class="footer-links"><a href="#shop">Shop</a><a href="#story">Our Story</a><a href="/reviews">Reviews</a><a href="/cart">Cart</a></div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"><span id="toastText">Added to cart</span><a href="/cart">View cart</a></div>
+
+  <script>
+    const CART_KEY='amma-pantry-cart';
+    const productsElement=document.querySelector('#products');
+    const money=value=>'₹'+Number(value||0).toLocaleString('en-IN');
+    const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+    let products=[],cart={},picks={},toastTimer;
+
+    function imageFor(product){
+      const name=product.name.toLowerCase();
+      if(name.includes('chicken'))return '/images/products/chicken-pickle.png';
+      if(name.includes('mango'))return '/images/products/mango-pickle.png';
+      if(name.includes('gobi')||name.includes('cauliflower'))return '/images/products/gobi-pickle.png';
+      if(name.includes('gavvalu'))return '/images/products/gavvalu.png';
+      if(name.includes('murukku'))return '/images/products/murukku.png';
+      if(name.includes('papad'))return '/images/products/papad.png';
+      return '';
+    }
+
+    function saveCart(){
+      const count=Object.values(cart).reduce((sum,qty)=>sum+qty,0);
+      document.querySelector('#cartCount').textContent=count;
+      try{localStorage.setItem(CART_KEY,JSON.stringify(cart));}catch{}
+    }
+
+    function renderProducts(){
+      productsElement.innerHTML=products.length?products.map(product=>{
+        const id=escapeHtml(product.id),name=escapeHtml(product.name),image=imageFor(product);
+        return `<article class="product reveal">
+          <div class="product-image">${image?`<img src="${image}" alt="${name}" loading="lazy">`:`<div class="placeholder">${name}<span>From Amma's kitchen</span></div>`}</div>
+          <h3>${name}</h3>
+          <p class="price">${money(product.price)} · ${escapeHtml(product.unit)}</p>
+          <p class="desc">${escapeHtml(product.desc)}</p>
+          <div class="buy">
+            <div class="stepper"><button type="button" aria-label="Decrease quantity of ${name}" data-id="${id}" data-step="-1">−</button><output id="pick-${id}">${picks[product.id]}</output><button type="button" aria-label="Increase quantity of ${name}" data-id="${id}" data-step="1">+</button></div>
+            <button class="btn" type="button" data-add="${id}">Add to cart</button>
+          </div>
+        </article>`;
+      }).join(''):'<p>No items are available right now.</p>';
+      observeReveals();
+    }
+
+    productsElement.addEventListener('click',event=>{
+      const step=event.target.closest('[data-step]');
+      if(step){
+        const id=step.dataset.id;
+        picks[id]=Math.max(1,Math.min(50,picks[id]+Number(step.dataset.step)));
+        document.getElementById(`pick-${id}`).textContent=picks[id];
+        return;
+      }
+      const add=event.target.closest('[data-add]');
+      if(!add)return;
+      const id=add.dataset.add,product=products.find(item=>item.id===id);
+      cart[id]=Math.min(50,(cart[id]||0)+picks[id]);
+      saveCart();
+      add.textContent='Added';add.classList.add('added');
+      setTimeout(()=>{add.textContent='Add to cart';add.classList.remove('added');},1400);
+      document.querySelector('#toastText').textContent=`${picks[id]} × ${product.name} added`;
+      const toast=document.querySelector('#toast');
+      toast.classList.add('show');
+      clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),3200);
+    });
+
+    const revealObserver='IntersectionObserver' in window?new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');revealObserver.unobserve(entry.target);}}),{threshold:.15}):null;
+    function observeReveals(){document.querySelectorAll('.reveal:not(.visible)').forEach(element=>revealObserver?revealObserver.observe(element):element.classList.add('visible'));}
+
+    const header=document.querySelector('#header');
+    const onScroll=()=>header.classList.toggle('scrolled',window.scrollY>window.innerHeight*.75);
+    window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+    async function init(){
+      try{cart=JSON.parse(localStorage.getItem(CART_KEY)||'{}')||{};}catch{cart={};}
+      observeReveals();
+      try{
+        const response=await fetch('/api/products');
+        if(!response.ok)throw new Error('Could not load the menu. Refresh to try again.');
+        const data=await response.json();
+        products=data.products||[];
+        products.forEach(product=>picks[product.id]=1);
+        for(const id of Object.keys(cart))if(!products.some(product=>product.id===id))delete cart[id];
+        const whatsapp=String(data.settings?.whatsappNumber||'').replace(/\D/g,'');
+        if(whatsapp)['#whatsappBtn','#footerWhatsapp'].forEach(sel=>document.querySelector(sel).href=`https://wa.me/${whatsapp}`);
+        renderProducts();
+        saveCart();
+      }catch(error){productsElement.innerHTML=`<p>${escapeHtml(error.message)}</p>`;}
+    }
+    init();
+  </script>
+</body>
+</html>
